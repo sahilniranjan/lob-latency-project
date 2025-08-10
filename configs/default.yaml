@@ -1,0 +1,19 @@
+horizon_ms: 100
+levels: 5
+use_ofi: true
+use_queue_imbalance: true
+use_microprice: true
+rolling_windows_ms: [10, 20, 50]
+
+val_split_time: 0.2
+model: logreg
+C: 0.5
+class_weight: balanced
+
+ring_size: 131072
+numa_pin_core_producer: 2
+numa_pin_core_worker: 4
+numa_pin_core_logger: 6
+
+model_pkl: outputs/logreg.pkl
+onnx_model: engine/src/onnx/model.onnx

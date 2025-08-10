@@ -1,0 +1,9 @@
+numpy
+pandas
+pyarrow
+scikit-learn
+onnx
+onnxruntime
+pyyaml
+joblib
+skl2onnx
