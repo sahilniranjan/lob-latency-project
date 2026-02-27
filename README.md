@@ -2,6 +2,8 @@
 
 Predict short‑horizon mid‑price moves from L2 order‑book data and run inference end‑to‑end in **< 0.7 ms p99** on commodity CPU.
 
+🌐 **Live Dashboard:** [lob-latency.streamlit.app](https://lob-latency.streamlit.app)
+
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![C++](https://img.shields.io/badge/C++-20-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
