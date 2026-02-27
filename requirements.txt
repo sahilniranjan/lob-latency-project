@@ -7,3 +7,6 @@ onnxruntime
 pyyaml
 joblib
 skl2onnx
+matplotlib
+streamlit
+plotly

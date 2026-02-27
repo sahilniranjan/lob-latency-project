@@ -27,16 +27,21 @@ int main(){
     std::thread worker([&]{
         TickMsg m; FeatureVec fx; fx.x.reserve(64);
         Timer tm; size_t cnt=0; double sum=0, maxv=0;
-        while(run || q.pop(m)){
-            if(!q.pop(m)) continue;
-            tm.start();
-            fe.compute(m.t, fx);
-            float p = scorer.score(fx.x);
-            double us = tm.us();
-            sum += us; if(us>maxv) maxv=us; cnt++;
-            (void)p;
+        while (true) {
+            if (q.pop(m)) {
+                tm.start();
+                fe.compute(m.t, fx);
+                float p = scorer.score(fx.x);
+                double us = tm.us();
+                sum += us; if(us>maxv) maxv=us; cnt++;
+                (void)p;
+            } else if (!run.load(std::memory_order_relaxed)) {
+                break;
+            }
         }
-        std::cout << "worker_mean_us=" << (sum/(cnt+1e-9)) << " max_us=" << maxv << "\n";
+        std::cout << "worker cnt=" << cnt
+                  << " mean_us=" << (sum/(cnt+1e-9))
+                  << " max_us=" << maxv << "\n";
     });
 
     prod.join(); worker.join();

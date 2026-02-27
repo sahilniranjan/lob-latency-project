@@ -1,7 +1,28 @@
-.venv/
+# ── Build artifacts ────────────────────────────────────────────────
+engine/build/
+*.o
+*.obj
+*.exe
+
+# ── Data (too large / generated) ──────────────────────────────────
+data/
+outputs/
+
+# ── Python ────────────────────────────────────────────────────────
 __pycache__/
 *.pyc
-outputs/
-data/
-engine/build/
+*.pyo
+.venv/
+*.egg-info/
+
+# ── IDE / OS ──────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
 .DS_Store
+
+# ── ONNX model (generated) ───────────────────────────────────────
+engine/src/onnx/

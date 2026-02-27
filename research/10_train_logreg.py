@@ -1,9 +1,14 @@
-import argparse, yaml
+import argparse, sys, yaml
 import numpy as np, pandas as pd
 from pathlib import Path
 from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import f1_score, matthews_corrcoef, classification_report
 from joblib import dump
+
+# Ensure sibling modules are importable when run from project root
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from utils_data import make_features
 
 parser = argparse.ArgumentParser()
@@ -19,7 +24,11 @@ n = len(X); cut = int(n * (1 - cfg['val_split_time']))
 Xtr, Xva = X[:cut], X[cut:]
 ytr, yva = y[:cut], y[cut:]
 
-clf = LogisticRegression(C=cfg['C'], class_weight=cfg['class_weight'], max_iter=200, n_jobs=1)
+clf = Pipeline([
+    ('scaler', StandardScaler()),
+    ('logreg', LogisticRegression(
+        C=cfg['C'], class_weight=cfg['class_weight'], max_iter=500)),
+])
 clf.fit(Xtr, ytr)
 
 pred = clf.predict(Xva)

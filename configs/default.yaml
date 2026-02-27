@@ -1,3 +1,4 @@
+# ── Features ──────────────────────────────────────────────────────
 horizon_ms: 100
 levels: 5
 use_ofi: true
@@ -5,15 +6,24 @@ use_queue_imbalance: true
 use_microprice: true
 rolling_windows_ms: [10, 20, 50]
 
+# ── Training ──────────────────────────────────────────────────────
 val_split_time: 0.2
 model: logreg
 C: 0.5
 class_weight: balanced
 
+# ── C++ Engine ────────────────────────────────────────────────────
 ring_size: 131072
 numa_pin_core_producer: 2
 numa_pin_core_worker: 4
 numa_pin_core_logger: 6
 
+# ── Paths ─────────────────────────────────────────────────────────
 model_pkl: outputs/logreg.pkl
 onnx_model: engine/src/onnx/model.onnx
+
+# ── Backtest ──────────────────────────────────────────────────────
+backtest_fee_bps: 10.0        # one-way maker fee in bps (10 = 0.1%)
+backtest_upper_thresh: 0.55   # go long  when P(up) > this
+backtest_lower_thresh: 0.45   # go short when P(up) < this
+backtest_latency_ticks: 1     # signal → execution delay
