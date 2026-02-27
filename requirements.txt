@@ -2,11 +2,9 @@ numpy
 pandas
 pyarrow
 scikit-learn
-onnx
-onnxruntime
 pyyaml
 joblib
-skl2onnx
 matplotlib
-streamlit
+streamlit>=1.45.0
 plotly
+protobuf>=4.25.0
